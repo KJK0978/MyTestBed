@@ -1,0 +1,38 @@
+To install Lorenz (same for other CES examples):
+-------------------------------------------------
+First you must be in this example/Lorenz directory.
+
+> julia --project
+
+then go into package mode: ]
+then add EKP and CES to the package manually with:
+(Lorenz) > add https://github.com/CliMA/EnsembleKalmanProcesses.jl.git
+(Lorenz) > add https://github.com/CliMA/CalibrateEmulateSample.jl.git
+
+Then instantiate to create all the Manifest file stuff
+
+Your Lorenz example is now fully installed (though not precompiled remember)!
+
+To run the example:
+--------------------
+
+First you must be in this example/Lorenz directory.
+
+> julia --project
+
+then include("src/Lorenz_example.jl")
+
+It will precompile (on first run likely many packages, the slow ones are normally GaussianProcesses.jl, CalibrateEmulateSample)
+
+
+What the example does:
+------------------------
+
+It runs a very long Lorenz system run at some "true" parameter value, gathers statistics together. It then "forgets the true value", and tries to use a sample and variance of these statistics to learn about the parameters
+
+1) Calibrate: the EKI results vs the true parameter results
+2) Emulate: the GP emulators, and see the GP prediction at true vs true data
+3) Sample: finally it calculates some uncertainty in the parameters
+
+In this example the uncertainty is tiny so it doesn't work hugely well, but for us this doesnt matter - you can view the (rather concentrated distributions) in the created output/*.png figures!
+
